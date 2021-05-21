@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    parameters {
-        booleanParam defaultValue: true, description: 'value_for_this', name: 'CodeAnalysis'
-    }
     stages {
         stage("checkout") {
             steps {
@@ -27,11 +24,8 @@ pipeline{
             }
         }
         stage('SonarAnalysis') {
-            when {environment name: 'BUILDME', value: 'yes'}
             steps {
-                withSonarQubeENV('sonarqube_mine') {
-                    bat 'mvn sonar:sonar'
-                }
+                 bat 'mvn sonar:sonar'
             }
         }
     }    
